@@ -165,7 +165,7 @@ def print_average_strategy():
 
 
 def main():
-    num_iterations = 10000
+    num_iterations = 100000
 
     avg_value = train_cfr_all_deals(num_iterations)
 
