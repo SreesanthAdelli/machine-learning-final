@@ -91,6 +91,19 @@ class Node:
 
 node_map = {}
 
+def total_positive_regret():
+    total = 0.0
+
+    for node in node_map.values():
+        for action in node.actions:
+            total += max(node.regret_sum[action], 0.0)
+
+    return total
+
+
+def average_regret(num_iterations):
+    return total_positive_regret() / num_iterations
+
 
 def cfr(cards, history, p0, p1):
     if is_terminal(history):
