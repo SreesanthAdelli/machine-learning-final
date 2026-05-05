@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import kuhn_poker as kp
 
 
-NUM_ITERATIONS = 1_000_000
+NUM_ITERATIONS = 500_000
 PRINT_EVERY = 100_000
 SOLVED_VALUE = -1 / 18
 
@@ -44,6 +44,11 @@ def train(n):
     return values, regrets
 
 
+def save_plot(name):
+    plt.savefig(f"{name}.svg")
+    plt.savefig(f"{name}.jpg", dpi=300)
+
+
 def plot(values, ylabel, title, filename, log_y=False):
     x = range(1, len(values) + 1)
 
@@ -59,7 +64,9 @@ def plot(values, ylabel, title, filename, log_y=False):
     plt.title(title)
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig(filename)
+
+    save_plot(filename)
+
     plt.show()
 
 
@@ -78,11 +85,19 @@ plt.title("Kuhn Poker CFR Convergence")
 plt.grid(True)
 plt.legend()
 plt.tight_layout()
-plt.savefig("cfr_convergence.svg")
+
+save_plot("cfr_convergence")
+
 plt.show()
 
 # Regret plot
-plot(regrets, "Average regret", "Average Regret Over Time", "cfr_regret.svg", log_y=True)
+plot(
+    regrets,
+    "Average regret",
+    "Average Regret Over Time",
+    "cfr_regret",
+    log_y=True
+)
 
 print(f"\nIterations: {NUM_ITERATIONS}")
 print(f"Final average game value: {values[-1]:.6f}")
